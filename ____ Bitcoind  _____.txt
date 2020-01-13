@@ -1,0 +1,120 @@
+﻿**** start use External HDD  on server *****
+fdisk -l
+mkdir /media/external
+mkfs.ext4  /dev/vdc
+mount /dev/vdc /media/external
+
+
+**make permanenet**
+nano /etc/fstab
+/dev/vdc /media/external/ ext4defaults     0   0
+
+
+**** end use External HDD  on server *****
+
+
+** Add repository and install bitcoind ** 
+
+
+sudo apt-get install build-essential
+sudo apt-get install libtool autotools-dev autoconf
+sudo apt-get install libssl-dev
+sudo apt-get install libboost-all-dev
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt-get update
+sudo apt-get install bitcoind
+mkdir ~/.bitcoin/ && cd ~/.bitcoin/
+nano bitcoin.conf
+
+
+
+
+** Add config to bitcoin.conf file ** 
+
+
+rpcuser=test
+rpcpassword=**************
+testnet=1
+rpcport=8332
+rpcallowip=127.0.0.1
+server=1
+**external hdd use** 
+datadir=/media/external/.bitcoin/
+
+
+rpcbind=127.0.0.1:18332
+
+
+
+
+
+
+** Start bitcoind ** 
+
+
+bitcoind & 
+ Or 
+sudo bitcoind -datadir=/media/external/.bitcoin/ &
+restart
+sudo bitcoind -datadir=/media/external/.bitcoin/ -daemon
+
+
+
+
+** If bitcoind is already started ** 
+
+
+ps -e | grep bitcoin // returns pid
+kill -9 <pid>
+bitcoind &
+
+
+** Test bitcoind is running and working **
+
+
+bitcoin-cli getinfo
+bitcoin-cli getnewaddress
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bitcoind -datadir=/media/external/.bitcoin/
+
+
+If you would like to do this permanently create a ~/.bitcoin/bitcoin.conf file and include:
+
+
+datadir=//media/external
+
+
+rpcuser=test
+rpcpassword=***************
+testnet=1
+rpcport=8332
+rpcallowip=127.0.0.1
+rpcallowip=*
+server=1
+datadir=/media/external
+
+
+curl --user test:*********down --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnewaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ -w '%{http_code}\n'
+
+
+
+
+sudo bitcoind  -datadir=/home/user/snap/bitcoin-core/common/.bitcoin -daemon
+
+
+
+
+bitcoin-cli getnewaddress
