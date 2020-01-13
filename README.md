@@ -3,7 +3,7 @@
 
 want to Purchase this script
 
-Telegram: @develoerhacker  (Best way to reach me)
+# Telegram: @develoerhacker  (Best way to reach me)
 
 Discuss any issue on script
 
